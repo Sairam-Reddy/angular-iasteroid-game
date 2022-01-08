@@ -182,7 +182,7 @@ export class AppComponent implements AfterViewInit {
 
     this.fieldRange = new Range();
 
-    window.addEventListener('resize', resize, false);
+    window.addEventListener('resize', this.resize, false);
     this.resize();
 
     this.mouse = new Point();
@@ -194,22 +194,22 @@ export class AppComponent implements AfterViewInit {
     this.dom.score = document.getElementById('score');
     this.dom.wepon = document.getElementById('wepon');
 
-    this.dom.start.addEventListener('click', start, false);
-    this.canvasElement.addEventListener('mousemove', mouseMove, false);
-    this.canvasElement.addEventListener('mousedown', mouseDown, false);
-    this.canvasElement.addEventListener('mouseup', mouseUp, false);
-    this.canvasElement.addEventListener('click', click, false);
+    this.dom.start.addEventListener('click', this.start, false);
+    this.canvasElement.addEventListener('mousemove', this.mouseMove, false);
+    this.canvasElement.addEventListener('mousedown', this.mouseDown, false);
+    this.canvasElement.addEventListener('mouseup', this.mouseUp, false);
+    this.canvasElement.addEventListener('click', this.click, false);
 
-    this.canvasElement.addEventListener('touchmove', touchMove, false);
-    this.canvasElement.addEventListener('touchstart', mouseDown, false);
-    this.canvasElement.addEventListener('touchend', mouseUp, false);
+    this.canvasElement.addEventListener('touchmove', this.touchMove, false);
+    this.canvasElement.addEventListener('touchstart', this.mouseDown, false);
+    this.canvasElement.addEventListener('touchend', this.mouseUp, false);
 
     this.debris = new Collection();
     for (var i = 0; i < 30; i++) {
       this.debris.push(new Debri(randInt(canvasWidth)));
     }
 
-    setInterval(loop, 1000 / this.FPS);
+    setInterval(this.loop, 1000 / this.FPS);
   }
 
   //------------------------------------
@@ -493,7 +493,7 @@ export class AppComponent implements AfterViewInit {
     for (var i = 1, len = arguments.length; i < len; i++) {
       o = arguments[i];
 
-      if ((!this.isObject(o) || this, isNull(o))) continue;
+      if ((!this.isObject(o) || this, this.isNull(o))) continue;
 
       for (p in o) {
         target[p] = o[p];
