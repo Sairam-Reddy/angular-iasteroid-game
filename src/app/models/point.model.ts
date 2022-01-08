@@ -6,7 +6,7 @@ import { HelperFunctions } from '../helpers/helper-functions';
 export class Point {
   public x;
   public y;
-  public constructor(x?, y?) {
+  public constructor(x = undefined, y = undefined) {
     this.set(x, y);
   }
 
@@ -26,17 +26,17 @@ export class Point {
       x = x.x;
     }
 
-    this.x = x || 0;
-    this.y = y || 0;
+    this.x = x !== undefined ? x : 0;
+    this.y = y !== undefined ? y : 0;
 
-    return this;
+    // return this;
   }
 
   public offset(x, y) {
-    this.x += x || 0;
-    this.y += y || 0;
+    this.x += x !== undefined ? x : 0;
+    this.y += y !== undefined ? y : 0;
 
-    return this;
+    // return this;
   }
 
   public add(p) {

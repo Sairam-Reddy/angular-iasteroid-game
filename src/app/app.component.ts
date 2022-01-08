@@ -13,6 +13,7 @@ import { Item } from './models/item.model';
 import { Point } from './models/point.model';
 import { Ship } from './models/ship.model';
 import { Ufo } from './models/ufo.model';
+import { Range } from './models/range.model';
 
 @Component({
   selector: 'my-app',
@@ -190,7 +191,7 @@ export class AppComponent implements AfterViewInit {
 
     this.fieldRange = new Range();
 
-    window.addEventListener('resize', this.resize, false);
+    window.addEventListener('resize', this.resize.bind(this), false);
     this.resize();
 
     this.mouse = new Point();
@@ -202,15 +203,39 @@ export class AppComponent implements AfterViewInit {
     this.dom.score = document.getElementById('score');
     this.dom.wepon = document.getElementById('wepon');
 
-    this.dom.start.addEventListener('click', this.start, false);
-    this.canvasElement.addEventListener('mousemove', this.mouseMove, false);
-    this.canvasElement.addEventListener('mousedown', this.mouseDown, false);
-    this.canvasElement.addEventListener('mouseup', this.mouseUp, false);
-    this.canvasElement.addEventListener('click', this.click, false);
+    this.dom.start.addEventListener('click', this.start.bind(this), false);
+    this.canvasElement.addEventListener(
+      'mousemove',
+      this.mouseMove.bind(this),
+      false
+    );
+    this.canvasElement.addEventListener(
+      'mousedown',
+      this.mouseDown.bind(this),
+      false
+    );
+    this.canvasElement.addEventListener(
+      'mouseup',
+      this.mouseUp.bind(this),
+      false
+    );
+    this.canvasElement.addEventListener('click', this.click.bind(this), false);
 
-    this.canvasElement.addEventListener('touchmove', this.touchMove, false);
-    this.canvasElement.addEventListener('touchstart', this.mouseDown, false);
-    this.canvasElement.addEventListener('touchend', this.mouseUp, false);
+    this.canvasElement.addEventListener(
+      'touchmove',
+      this.touchMove.bind(this),
+      false
+    );
+    this.canvasElement.addEventListener(
+      'touchstart',
+      this.mouseDown.bind(this),
+      false
+    );
+    this.canvasElement.addEventListener(
+      'touchend',
+      this.mouseUp.bind(this),
+      false
+    );
 
     this.debris = new Collection();
     for (var i = 0; i < 30; i++) {
@@ -219,7 +244,7 @@ export class AppComponent implements AfterViewInit {
       );
     }
 
-    setInterval(this.loop, 1000 / this.FPS);
+    setInterval(this.loop.bind(this), 1000 / this.FPS);
   }
 
   //------------------------------------

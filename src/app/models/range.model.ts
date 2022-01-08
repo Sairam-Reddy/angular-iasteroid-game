@@ -7,11 +7,16 @@ export class Range {
   public top;
   public bottom;
 
-  public constructor(left, right, top, bottom) {
-    this.left = left || 0;
-    this.right = right || 0;
-    this.top = top || 0;
-    this.bottom = bottom || 0;
+  public constructor(
+    left = undefined,
+    right = undefined,
+    top = undefined,
+    bottom = undefined
+  ) {
+    this.left = left ? left : 0;
+    this.right = right ? right : 0;
+    this.top = top ? top : 0;
+    this.bottom = bottom ? bottom : 0;
   }
 
   public contains(x, y, inflate) {
