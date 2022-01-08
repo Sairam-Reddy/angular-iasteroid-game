@@ -7,7 +7,7 @@ import { HelperFunctions } from '../helpers/helper-functions';
  */
 export class Path extends Array {
   public closed = true;
-  public constructor(points, closed) {
+  public constructor(points?, closed?) {
     super();
     if (HelperFunctions.isArray(points)) {
       for (var i = 0, len = points.length; i < len; i++) {

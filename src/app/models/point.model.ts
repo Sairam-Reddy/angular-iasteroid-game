@@ -6,7 +6,7 @@ import { HelperFunctions } from '../helpers/helper-functions';
 export class Point {
   public x;
   public y;
-  public constructor(x, y) {
+  public constructor(x?, y?) {
     this.set(x, y);
   }
 
