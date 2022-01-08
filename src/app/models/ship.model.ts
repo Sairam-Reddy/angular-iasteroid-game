@@ -1,5 +1,7 @@
+import { Beam } from './beam.model';
 import { Path } from './path.model';
 import { Point } from './point.model';
+import { Splinter } from './splinter.model';
 
 const WEPON_DEFAULT = {
   // Weapon name

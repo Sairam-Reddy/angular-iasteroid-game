@@ -18,11 +18,14 @@ export class ExplosionPath extends Path {
   public speed;
   public range;
 
-  public constructor(x, y, options) {
+  public constructor(x, y, options: { speed; range }) {
     super();
     this.x = x;
     this.y = y;
-    this.options = options;
+    if (options) {
+      this.speed = options.speed;
+      this.range = options.range;
+    }
   }
 
   public update() {

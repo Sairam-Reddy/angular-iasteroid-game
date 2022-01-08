@@ -1,6 +1,7 @@
 import { HelperFunctions } from '../helpers/helper-functions';
 import { Path } from './path.model';
 import { Point } from './point.model';
+import { Splinter } from './splinter.model';
 
 const SCORE = {
   ASTEROID_DAMAGE: 10,
@@ -85,7 +86,6 @@ export class Ufo extends Point {
 
     splinters.push(new Splinter(this.x, this.y, splinterRadius, splinterNum));
 
-    // 4 フレームごとに 1 回　で 10 回点滅
     this.damagedBlink = 40;
 
     return score;

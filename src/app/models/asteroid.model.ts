@@ -1,6 +1,7 @@
 import { HelperFunctions } from '../helpers/helper-functions';
 import { Path } from './path.model';
 import { Point } from './point.model';
+import { Splinter } from './splinter.model';
 
 const PI = Math.PI;
 const TWO_PI = PI * 2;
@@ -24,12 +25,12 @@ export class Asteroid extends Point {
   public vanished = false;
   public v;
   public path;
-  public angle: number;
+  public angleValue: number;
 
   public constructor(x, y, radius, angle) {
     super(x, y);
     this.radius = radius;
-    this.angle = angle;
+    this.angleValue = angle;
 
     this.make();
   }
@@ -69,7 +70,7 @@ export class Asteroid extends Point {
   }
 
   public make() {
-    this.v = Point.polar(1, this.angle);
+    this.v = Point.polar(1, this.angleValue);
     this.v.normalize((1 - this.radius / ASTEROID_MAX_SIZE) * 1.75 + 0.25);
 
     this.path = new Path();
@@ -97,8 +98,8 @@ export class Asteroid extends Point {
       this.vanished = true;
       score = SCORE.ASTEROID_DESTROY;
     } else {
-      this.angle =
-        this.angle + DEG_TO_RAD * HelperFunctions.randUniform(30, -30);
+      this.angleValue =
+        this.angleValue + DEG_TO_RAD * HelperFunctions.randUniform(30, -30);
       this.make();
     }
 

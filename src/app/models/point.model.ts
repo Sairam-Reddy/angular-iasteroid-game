@@ -86,7 +86,7 @@ export class Point {
     return this;
   }
 
-  public angle() {
+  public angle(): number {
     return Math.atan2(this.y, this.x);
   }
 

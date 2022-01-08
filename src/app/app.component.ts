@@ -5,6 +5,14 @@ import {
   VERSION,
   ViewChild,
 } from '@angular/core';
+import { HelperFunctions } from './helpers/helper-functions';
+import { Asteroid } from './models/asteroid.model';
+import { Collection } from './models/collection.model';
+import { Debri } from './models/debri.model';
+import { Item } from './models/item.model';
+import { Point } from './models/point.model';
+import { Ship } from './models/ship.model';
+import { Ufo } from './models/ufo.model';
 
 @Component({
   selector: 'my-app',
@@ -206,7 +214,9 @@ export class AppComponent implements AfterViewInit {
 
     this.debris = new Collection();
     for (var i = 0; i < 30; i++) {
-      this.debris.push(new Debri(randInt(canvasWidth)));
+      this.debris.push(
+        new Debri(HelperFunctions.randInt(this.canvasWidth), this.canvasHeight)
+      );
     }
 
     setInterval(this.loop, 1000 / this.FPS);
@@ -216,7 +226,7 @@ export class AppComponent implements AfterViewInit {
   // EVENT HANDLERS
   //------------------------------------
 
-  private resize(e) {
+  private resize() {
     this.canvasElement.width =
       this.canvasWidth =
       this.fieldRange.right =
@@ -271,7 +281,7 @@ export class AppComponent implements AfterViewInit {
 
     // Spawn Debri
     if (now - this.debriLastSpawn > 300) {
-      this.debris.push(new Debri(this.canvasWidth));
+      this.debris.push(new Debri(this.canvasWidth, this.canvasHeight));
       this.debriLastSpawn = now;
     }
 
@@ -285,12 +295,14 @@ export class AppComponent implements AfterViewInit {
         now - this.asteroidLastSpawn > this.ASTEROID_SPAWN_TIME &&
         this.asteroids.length < this.ASTEROID_MAX_NUM
       ) {
-        this.asteroids.push(Asteroid.spawn());
+        this.asteroids.push(
+          Asteroid.spawn(this.canvasWidth, this.canvasHeight)
+        );
         this.asteroidLastSpawn = now;
       }
 
       if (!this.ufo && !this.item && Math.random() < this.UFO_INCIDENCE) {
-        this.ufo = Ufo.spawn();
+        this.ufo = Ufo.spawn(this.canvasWidth, this.canvasHeight);
       }
 
       // Update
