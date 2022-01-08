@@ -19,14 +19,14 @@ export class HelperFunctions {
     return target;
   }
 
-  public static randUniform(max, min) {
+  public static randUniform(max, min = undefined): number {
     if (min === undefined) {
       min = 0;
     }
     return Math.random() * (max - min) + min;
   }
 
-  public static randInt(max, min) {
+  public static randInt(max, min = undefined) {
     if (min === undefined) {
       min = 0;
     }

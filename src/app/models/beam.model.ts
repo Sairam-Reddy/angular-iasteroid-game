@@ -1,4 +1,5 @@
 import { HelperFunctions } from '../helpers/helper-functions';
+import { ExplosionPath } from './explosion.model';
 import { Path } from './path.model';
 import { Point } from './point.model';
 
