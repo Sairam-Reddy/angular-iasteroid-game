@@ -29,14 +29,14 @@ export class Point {
     this.x = x !== undefined ? x : 0;
     this.y = y !== undefined ? y : 0;
 
-    // return this;
+    return this;
   }
 
   public offset(x, y) {
     this.x += x !== undefined ? x : 0;
     this.y += y !== undefined ? y : 0;
 
-    // return this;
+    return this;
   }
 
   public add(p) {

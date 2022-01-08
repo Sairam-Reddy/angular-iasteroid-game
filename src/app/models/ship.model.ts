@@ -101,7 +101,6 @@ export class Ship extends Point {
     var p = Point.polar(this.size, this.angle).add(this);
     var beam = new Beam(p.x, p.y, this.angle, this.currentWepon);
 
-    // 自機のスピードをのせる
     // Put your own speed
     var currentSpeed = this.latest.distanceTo(this);
     if (currentSpeed > SHIP_SPEED) currentSpeed = SHIP_SPEED;
@@ -115,10 +114,9 @@ export class Ship extends Point {
     beams.push(beam);
   }
 
-  public update(mouse) {
+  public update(mouse, fieldRange) {
     if (this.died) {
-      // 破壊されているなら破片を更新
-      this.splinter.update();
+      this.splinter.update(fieldRange);
       return;
     }
 
@@ -129,7 +127,6 @@ export class Ship extends Point {
 
     if (vlen > SHIP_SPEED) v.normalize(SHIP_SPEED);
 
-    // マウス直前まで移動
     var i, len;
     if (vlen > this.size + 10) {
       this.add(v);

@@ -91,7 +91,7 @@ export class Ufo extends Point {
     return score;
   }
 
-  public update(canvasWidth, canvasHeight) {
+  public update(args: { canvasWidth; canvasHeight }) {
     var v = this.v;
     var destination = this.destination;
 
@@ -102,8 +102,8 @@ export class Ufo extends Point {
       v.normalize(UFO_SPEED);
     } else if (dist < 0.1) {
       destination.set(
-        HelperFunctions.randUniform(canvasWidth),
-        HelperFunctions.randUniform(canvasHeight)
+        HelperFunctions.randUniform(args.canvasWidth),
+        HelperFunctions.randUniform(args.canvasHeight)
       );
     }
 

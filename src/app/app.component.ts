@@ -336,11 +336,14 @@ export class AppComponent implements AfterViewInit {
         if (this.isMouseDown) {
           this.ship.fire(this.beams);
         }
-        this.ship.update(this.mouse);
+        this.ship.update(this.mouse, this.fieldRange);
       }
 
       if (this.ufo) {
-        this.ufo.update();
+        this.ufo.update({
+          canvasWidth: this.canvasWidth,
+          canvasHeight: this.canvasHeight,
+        });
         if (this.ufo.vanished) {
           this.item = new Item(this.ufo.x, this.ufo.y);
           this.ufo = null;
@@ -350,7 +353,7 @@ export class AppComponent implements AfterViewInit {
       }
 
       if (this.item) {
-        this.item.update();
+        this.item.update(this.fieldRange);
         if (this.item.vanished) {
           this.item = null;
         } else if (this.hitDetection(this.item, this.ship)) {
@@ -359,28 +362,11 @@ export class AppComponent implements AfterViewInit {
         }
       }
 
-      this.beams.eachUpdate(function (index, beam) {
-        for (var i = 0; i < this.asteroids.length; i++) {
-          this.asteroid = this.asteroids[i];
-          if (this.hitDetection(beam, this.asteroid)) {
-            this.score += this.asteroid.damage(beam.power, this.splinters);
-            beam.notifyHit();
-          }
-        }
+      this.beams.eachUpdate(this.fieldRange);
 
-        if (this.ufo && this.hitDetection(beam, this.ufo)) {
-          this.score += this.ufo.damage(beam.power, this.splinters);
-          beam.notifyHit();
-        }
-      });
+      this.asteroids.eachUpdate(this.fieldRange);
 
-      this.asteroids.eachUpdate(function (index, asteroid) {
-        if (this.hitDetection(asteroid, this.ship)) {
-          this.gameOver();
-        }
-      });
-
-      this.splinters.eachUpdate();
+      this.splinters.eachUpdate(this.fieldRange);
 
       // Display
 
@@ -427,7 +413,7 @@ export class AppComponent implements AfterViewInit {
     }
     // Game over
     if (this.ship && this.ship.died) {
-      this.ship.update();
+      this.ship.update(this.mouse, this.fieldRange);
       this.ship.splinter.draw(this.ctx);
     }
     this.ctx.fill();
@@ -443,6 +429,28 @@ export class AppComponent implements AfterViewInit {
     this.beams = new Collection();
     this.asteroids = new Collection();
     this.splinters = new Collection();
+
+    this.beams.callback = (index, beam) => {
+      for (var i = 0; i < this.asteroids.length; i++) {
+        const asteroid = this.asteroids[i];
+        if (this.hitDetection(beam, asteroid)) {
+          this.score += asteroid.damage(beam.power, this.splinters);
+          beam.notifyHit();
+        }
+      }
+
+      if (this.ufo && this.hitDetection(beam, this.ufo)) {
+        this.score += this.ufo.damage(beam.power, this.splinters);
+        beam.notifyHit();
+      }
+    };
+
+    this.asteroids.callback = (index, asteroid) => {
+      if (this.hitDetection(asteroid, this.ship)) {
+        this.gameOver();
+      }
+    };
+
     this.ufo = null;
     this.item = null;
     this.score = 0;

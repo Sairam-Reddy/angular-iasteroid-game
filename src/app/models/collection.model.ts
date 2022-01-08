@@ -4,6 +4,8 @@
  * @super Array
  */
 export class Collection extends Array {
+  public callback: (index, item) => void;
+
   public constructor() {
     super();
     for (var i = 0, len = arguments.length; i < len; i++) {
@@ -11,7 +13,7 @@ export class Collection extends Array {
     }
   }
 
-  public eachUpdate(callback: Function) {
+  public eachUpdate(args: any) {
     for (let i = 0, len = this.length, item; i < len; i++) {
       item = this[i];
 
@@ -21,10 +23,10 @@ export class Collection extends Array {
         i--;
         continue;
       }
-      item.update();
+      item.update(args);
 
-      if (callback) {
-        callback.call(this, i, item);
+      if (this.callback) {
+        this.callback(i, item);
       }
     }
   }
