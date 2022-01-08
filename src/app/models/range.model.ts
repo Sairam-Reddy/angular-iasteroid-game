@@ -7,7 +7,7 @@ export class Range {
   public top;
   public bottom;
 
-  public Range(left, right, top, bottom) {
+  public constructor(left, right, top, bottom) {
     this.left = left || 0;
     this.right = right || 0;
     this.top = top || 0;

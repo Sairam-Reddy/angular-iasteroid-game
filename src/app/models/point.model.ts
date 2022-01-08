@@ -96,7 +96,7 @@ export class Point {
     return Math.atan2(dy, dx);
   }
 
-  public distanceTo(p) {
+  public distanceTo(p): number {
     var dx = this.x - p.x,
       dy = this.y - p.y;
     return Math.sqrt(dx * dx + dy * dy);

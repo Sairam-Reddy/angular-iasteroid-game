@@ -1,11 +1,11 @@
 export class HelperFunctions {
-  public static extend() {
-    var target = arguments[0] || {},
+  public static extend(...args: Array<any>) {
+    var target = args[0] || {},
       o,
       p;
 
-    for (var i = 1, len = arguments.length; i < len; i++) {
-      o = arguments[i];
+    for (var i = 1, len = args.length; i < len; i++) {
+      o = args[i];
 
       if ((!this.isObject(o) || this, this.isNull(o))) {
         continue;
